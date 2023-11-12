@@ -1,51 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
+  <head>
     <script src="https://unpkg.com/axios@0.24.0/dist/axios.min.js"></script>
     <script src="https://unpkg.com/qs@6.10.2/dist/qs.js"></script>
-</head>
-<body>
-    <input type="file" multiple id="myFile"/>
+  </head>
+  <body>
+    <input type="file" multiple id="myFile" />
     <script>
-        // url-param
-        axios.get('/1234').then(console.log)
+      // url-param
+      axios.get('/1234').then(console.log);
 
-        // query
-        axios.get('/find', {
-            params: {
-                name: '光',
-                age: 12
-            }
-        }).then(console.log )
+      // query
+      axios
+        .get('/find', {
+          params: {
+            name: '光',
+            age: 12,
+          },
+        })
+        .then(console.log);
 
-        // form-urlencoded
-        async function formUrlEncoded() {
-            const res = await axios.post('/', {
-                name: '光',
-                age: 20
-            }, {
-                headers: { 'content-type': 'application/x-www-form-urlencoded' }
-            });
-            console.log(res);  
-        }
-        formUrlEncoded();
+      // form-urlencoded
+      async function formUrlEncoded() {
+        const res = await axios.post(
+          '/',
+          {
+            name: '光',
+            age: 20,
+          },
+          {
+            headers: { 'content-type': 'application/x-www-form-urlencoded' },
+          },
+        );
+        console.log(res);
+      }
+      formUrlEncoded();
 
-        // form-data
-        const myFile = document.getElementById('myFile')
-        myFile.onchange = async function(){
-            const formData = new FormData()
-            formData.set('name', '光')
-            formData.set('age', 12)
-            Array.from(this.files).forEach((element, i) => {
-                formData.set('file'+i, element)
-            });
+      // form-data
+      const myFile = document.getElementById('myFile');
+      myFile.onchange = async function () {
+        const formData = new FormData();
+        formData.set('name', '光');
+        formData.set('age', 12);
+        Array.from(this.files).forEach((element, i) => {
+          formData.set('file' + i, element);
+        });
 
-            const res = await axios.post('/file', formData, {
-                headers: { 'content-type': 'multipart/form-data' }
-            })
-            
-            console.log(res)
-        }
+        const res = await axios.post('/file', formData, {
+          headers: { 'content-type': 'multipart/form-data' },
+        });
+
+        console.log(res);
+      };
     </script>
-</body>
+  </body>
 </html>

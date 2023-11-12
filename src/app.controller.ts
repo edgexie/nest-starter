@@ -7,9 +7,13 @@ import {
   Post,
   UploadedFiles,
   UseInterceptors,
+  Inject,
+  Req,
+  Header,
 } from '@nestjs/common';
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
 import { AppService } from './app.service';
+import { Request } from 'express';
 class PersonInfoDto {
   name: string;
   age: number;
@@ -17,24 +21,26 @@ class PersonInfoDto {
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
+  @Inject('person') private readonly person: { name: string };
 
-  @Get()
+  @Get('')
   getHello(): string {
     return this.appService.getHello();
   }
 
   // query,注意query应该放在 url param 前，否则先匹配url param
   @Get('find')
-  query(@Query('name') name: string) {
+  query(@Query('name') name: string, @Req() request: Request) {
+    console.log(request);
     return 'your name is' + name;
   }
 
   // url param
   // 注意'api/person'会和'id'拼在一起
-  @Get(':id')
-  getHello2(@Param('id') id: string): string {
-    return this.appService.getHello(id);
-  }
+  // @Get(':id')
+  // getHello2(@Param('id') id: string): string {
+  //   return this.appService.getHello(id);
+  // }
 
   // form-urlencoded，JSON，DTO data transfer object 就是用于封装传输的数据的对象
   @Post()
