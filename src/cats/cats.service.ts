@@ -1,9 +1,15 @@
 import { Injectable } from '@nestjs/common';
-import { CreateCatDto } from './dto/create-cat.dto';
+import {
+  CreateCatDto,
+  CreateCatUseClassValidatorDto,
+} from './dto/create-cat.dto';
 
 @Injectable()
 export class CatsService {
   create(createCatDto: CreateCatDto) {
+    return 'This action adds a new cat123';
+  }
+  create2(createCatUseClassValidatorDto: CreateCatUseClassValidatorDto) {
     return 'This action adds a new cat123';
   }
 
