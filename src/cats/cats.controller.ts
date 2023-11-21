@@ -14,6 +14,8 @@ import {
   DefaultValuePipe,
   UsePipes,
   UseGuards,
+  UseInterceptors,
+  Inject,
 } from '@nestjs/common';
 import { CatsService } from './cats.service';
 import {
@@ -28,11 +30,18 @@ import { Request, Response } from 'express';
 import { ZodValidationPipe } from 'src/pipes/zod-validation.pipe';
 import { ClassValidationPipe } from 'src/pipes/class-validation.pipe';
 
+import { LoggingInterceptor } from 'src/interceptors/logging.interceptor';
+
 @Controller('cats')
 @UseGuards(RolesGuard)
+@UseInterceptors(LoggingInterceptor)
 export class CatsController {
-  constructor(private readonly catsService: CatsService) {}
-
+  private helloMessage: string;
+  constructor(
+    private readonly catsService: CatsService, // @Inject('ASYNC_CONNECTION') private readonly connection: any,
+  ) {
+    // this.helloMessage = configService.get('HELLO_MESSAGE');
+  }
   @Post()
   @UsePipes(new ZodValidationPipe(createCatSchema))
   create(@Body() createCatDto: CreateCatDto) {
@@ -56,8 +65,10 @@ export class CatsController {
   @Get()
   @Roles('admin')
   // 方法名称没有任何意义
-  findAll(@Req() request: Request): string {
-    return 'This action returns all cats';
+  findAll(@Req() request: Request): any {
+    // console.log(this.config);
+    const res = { a: null };
+    return res;
   }
 
   @Get(':id')

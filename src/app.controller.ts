@@ -22,9 +22,11 @@ class PersonInfoDto {
 export class AppController {
   constructor(private readonly appService: AppService) {}
   @Inject('person') private readonly person: { name: string };
+  @Inject('CONFIG') private config;
 
   @Get('')
   getHello(): string {
+    console.log(this.config);
     return this.appService.getHello();
   }
 
