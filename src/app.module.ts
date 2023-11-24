@@ -8,6 +8,10 @@ import { RolesGuard } from './guards/roles.guard';
 import { ConfigModule } from './config/config.module';
 import { HttpExceptionFilter } from './http-exception.filter';
 
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './user/user.module';
+import { Users } from './user/users.entity';
+
 const configFactory: Provider = {
   provide: 'CONFIG',
   useFactory: () => {
@@ -39,6 +43,20 @@ const configFactory: Provider = {
       },
     },
   ],
-  imports: [CatsModule, ConfigModule.register({ folder: './config' })],
+  imports: [
+    CatsModule,
+    ConfigModule.register({ folder: './config' }),
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: 'localhost',
+      port: 3306,
+      username: 'root',
+      password: 'edgexie',
+      database: 'nestjs',
+      entities: [Users],
+      // synchronize: true,
+    }),
+    UserModule,
+  ],
 })
 export class AppModule {}
