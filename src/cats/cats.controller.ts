@@ -16,7 +16,10 @@ import {
   UseGuards,
   UseInterceptors,
   Inject,
+  OnModuleInit,
+  UseFilters,
 } from '@nestjs/common';
+
 import { CatsService } from './cats.service';
 import {
   CreateCatDto,
@@ -31,17 +34,26 @@ import { ZodValidationPipe } from 'src/pipes/zod-validation.pipe';
 import { ClassValidationPipe } from 'src/pipes/class-validation.pipe';
 
 import { LoggingInterceptor } from 'src/interceptors/logging.interceptor';
+import { ModuleRef } from '@nestjs/core';
+import { HttpExceptionFilter } from 'src/http-exception.filter';
 
 @Controller('cats')
 @UseGuards(RolesGuard)
 @UseInterceptors(LoggingInterceptor)
-export class CatsController {
+export class CatsController implements OnModuleInit {
   private helloMessage: string;
+  private service: CatsService;
   constructor(
     private readonly catsService: CatsService, // @Inject('ASYNC_CONNECTION') private readonly connection: any,
+    private moduleRef: ModuleRef,
   ) {
     // this.helloMessage = configService.get('HELLO_MESSAGE');
   }
+
+  onModuleInit() {
+    this.service = this.moduleRef.get(CatsService);
+  }
+
   @Post()
   @UsePipes(new ZodValidationPipe(createCatSchema))
   create(@Body() createCatDto: CreateCatDto) {
@@ -63,7 +75,7 @@ export class CatsController {
   }
 
   @Get()
-  @Roles('admin')
+  @Roles(['admin'])
   // 方法名称没有任何意义
   findAll(@Req() request: Request): any {
     // console.log(this.config);

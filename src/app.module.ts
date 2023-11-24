@@ -3,9 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 
 import { CatsModule } from './cats/cats.module';
-import { APP_GUARD } from '@nestjs/core';
+import { APP_GUARD, APP_FILTER } from '@nestjs/core';
 import { RolesGuard } from './guards/roles.guard';
 import { ConfigModule } from './config/config.module';
+import { HttpExceptionFilter } from './http-exception.filter';
 
 const configFactory: Provider = {
   provide: 'CONFIG',
@@ -20,6 +21,10 @@ const configFactory: Provider = {
   controllers: [AppController],
   providers: [
     AppService,
+    {
+      provide: APP_FILTER,
+      useClass: HttpExceptionFilter,
+    },
     {
       provide: 'person',
       useValue: {
