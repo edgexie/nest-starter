@@ -1,6 +1,6 @@
 GET http://localhost:3000/user
 ###
-PUT http://localhost:3000/user/2/dudud
+PUT http://localhost:3000/user/2/xie
 
 ### 
 PUT http://localhost:3000/user

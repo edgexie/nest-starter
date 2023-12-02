@@ -33,11 +33,10 @@ export class UserService {
 
   // 根据id查询
   async findOne(id) {
-    const res =
-      (await this.userRepository.findOne({
-        where: { id },
-        relations: { photos: true },
-      })) || [];
+    const res = await this.userRepository.findOne({
+      where: { id },
+      relations: { photos: true },
+    });
     return res;
   }
 

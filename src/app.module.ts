@@ -50,7 +50,8 @@ const configFactory: Provider = {
       username: 'root',
       password: 'edgexie',
       database: 'nestjs',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      autoLoadEntities: true, // 自动加载实体,指定该选项后，通过 forFeature() 方法注册的每个实体都将自动添加到配置对象的 entities 数组中。
+      // entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
     UserModule,
