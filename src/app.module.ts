@@ -5,12 +5,10 @@ import { AppService } from './app.service';
 import { CatsModule } from './cats/cats.module';
 import { APP_GUARD, APP_FILTER } from '@nestjs/core';
 import { RolesGuard } from './guards/roles.guard';
-import { ConfigModule } from './config/config.module';
 import { HttpExceptionFilter } from './http-exception.filter';
-
+import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
-import { Users } from './user/users.entity';
 
 const configFactory: Provider = {
   provide: 'CONFIG',
@@ -45,7 +43,6 @@ const configFactory: Provider = {
   ],
   imports: [
     CatsModule,
-    ConfigModule.register({ folder: './config' }),
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: 'localhost',
@@ -53,8 +50,8 @@ const configFactory: Provider = {
       username: 'root',
       password: 'edgexie',
       database: 'nestjs',
-      entities: [Users],
-      // synchronize: true,
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      synchronize: true,
     }),
     UserModule,
   ],
