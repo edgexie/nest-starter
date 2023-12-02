@@ -50,11 +50,22 @@ const configFactory: Provider = {
       username: 'root',
       password: 'edgexie',
       database: 'nestjs',
+      connectorPackage: 'mysql2',
       autoLoadEntities: true, // 自动加载实体,指定该选项后，通过 forFeature() 方法注册的每个实体都将自动添加到配置对象的 entities 数组中。
       // entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
     UserModule,
+    ConfigModule.forRoot({
+      envFilePath:
+        process.env.NODE_ENV === 'production'
+          ? '.env.production'
+          : '.env.development',
+    }),
   ],
 })
-export class AppModule {}
+export class AppModule {
+  constructor() {
+    console.log('Current environment:', process.env.NODE_ENV);
+  }
+}

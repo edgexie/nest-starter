@@ -14,6 +14,7 @@ import {
 import { AnyFilesInterceptor } from '@nestjs/platform-express';
 import { AppService } from './app.service';
 import { Request } from 'express';
+import { ConfigService } from '@nestjs/config';
 class PersonInfoDto {
   name: string;
   age: number;
@@ -23,10 +24,12 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
   @Inject('person') private readonly person: { name: string };
   @Inject('CONFIG') private config;
-
+  @Inject(ConfigService)
+  private configService: ConfigService;
   @Get('')
   getHello(): string {
-    console.log(this.config);
+    console.log(this.configService.get('aaa'));
+    console.log(this.configService.get('bbb'));
     return this.appService.getHello();
   }
 

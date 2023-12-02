@@ -1,5 +1,4 @@
 import { Injectable } from '@nestjs/common';
-import { ConfigService } from './../config/config.service';
 import {
   CreateCatDto,
   CreateCatUseClassValidatorDto,
@@ -7,7 +6,7 @@ import {
 
 @Injectable()
 export class CatsService {
-  constructor(private configService: ConfigService) {}
+  constructor() {}
   create(createCatDto: CreateCatDto) {
     return 'This action adds a new cat123';
   }
