@@ -1,1 +1,11 @@
 GET http://localhost:3000/cats
+
+### mongoose
+POST http://localhost:3000/cats/create-with-mongodb
+content-type: application/json
+
+{
+  "name": "xie",
+  "age":12,
+  "breed": "breed"
+}

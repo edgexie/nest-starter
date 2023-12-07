@@ -4,9 +4,19 @@ import {
   CreateCatUseClassValidatorDto,
 } from './dto/create-cat.dto';
 
+import { Create2CatDto } from './dto/create2-cat.dto';
+
+import { InjectModel } from '@nestjs/mongoose';
+import { Cat } from './cats.schema';
+import { Model } from 'mongoose';
+
 @Injectable()
 export class CatsService {
-  constructor() {}
+  constructor(@InjectModel(Cat.name) private catModel: Model<Cat>) {}
+  async createWithMongoose(create2CatDto: Create2CatDto) {
+    const createdCat = new this.catModel(create2CatDto);
+    return createdCat.save();
+  }
   create(createCatDto: CreateCatDto) {
     return 'This action adds a new cat123';
   }

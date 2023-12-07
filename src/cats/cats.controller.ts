@@ -36,6 +36,7 @@ import { ClassValidationPipe } from 'src/pipes/class-validation.pipe';
 import { LoggingInterceptor } from 'src/interceptors/logging.interceptor';
 import { ModuleRef } from '@nestjs/core';
 import { HttpExceptionFilter } from 'src/http-exception.filter';
+import { Create2CatDto } from './dto/create2-cat.dto';
 
 @Controller('cats')
 @UseGuards(RolesGuard)
@@ -66,6 +67,11 @@ export class CatsController implements OnModuleInit {
     createCatUseClassValidatorDto: CreateCatUseClassValidatorDto,
   ) {
     return this.catsService.create2(createCatUseClassValidatorDto);
+  }
+
+  @Post('create-with-mongodb')
+  createWithMongoose(@Body() create2CatDto: Create2CatDto) {
+    this.catsService.createWithMongoose(create2CatDto);
   }
 
   // 使用express 获取 post form-urlencoded的参数，以及返回查询成功后的结果
