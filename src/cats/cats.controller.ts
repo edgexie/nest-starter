@@ -35,9 +35,10 @@ import { ClassValidationPipe } from 'src/pipes/class-validation.pipe';
 
 import { LoggingInterceptor } from 'src/interceptors/logging.interceptor';
 import { ModuleRef } from '@nestjs/core';
-import { HttpExceptionFilter } from 'src/http-exception.filter';
 import { Create2CatDto } from './dto/create2-cat.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('cats')
 @Controller('cats')
 @UseGuards(RolesGuard)
 @UseInterceptors(LoggingInterceptor)

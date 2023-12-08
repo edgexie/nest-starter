@@ -1,3 +1,13 @@
+### 创建用户
+POST http://localhost:3000/user
+
+{
+  "age":13,
+  "name": "随意",
+  "email": "b"
+}
+
+###
 GET http://localhost:3000/user
 ###
 PUT http://localhost:3000/user/2/edgexie

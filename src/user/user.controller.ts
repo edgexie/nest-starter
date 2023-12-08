@@ -1,12 +1,29 @@
-import { Controller, Get, Param, Put, Query } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Param,
+  Put,
+  Query,
+  Post,
+  Body,
+  UseInterceptors,
+  ClassSerializerInterceptor,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { User } from './user.entity';
 import { PageDto } from './page.dto';
+import { CreateUserDto } from './dto/CreateUser.dto';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @Post()
+  create(@Body() createUserDto: CreateUserDto) {
+    return 'This action adds a new user';
+  }
+
+  @UseInterceptors(ClassSerializerInterceptor)
   @Get()
   async findUser(@Query() pageDto: PageDto) {
     const [users, count] = await this.userService.findAll(pageDto);

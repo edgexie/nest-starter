@@ -15,7 +15,12 @@ import { AnyFilesInterceptor } from '@nestjs/platform-express';
 import { AppService } from './app.service';
 import { Request } from 'express';
 import { ConfigService } from '@nestjs/config';
+import { ApiProperty } from '@nestjs/swagger';
 class PersonInfoDto {
+  @ApiProperty({
+    example: 'John Doe',
+    description: 'The name of the user',
+  })
   name: string;
   age: number;
 }
