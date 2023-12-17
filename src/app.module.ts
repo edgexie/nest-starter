@@ -62,20 +62,20 @@ const configFactory: Provider = {
     //   // entities: [__dirname + '/**/*.entity{.ts,.js}'],
     //   synchronize: true,
     // }),
-    TypeOrmModule.forRootAsync({
-      useFactory: () => ({
-        type: 'mysql',
-        host: process.env.HOST,
-        port: Number(process.env.PORT),
-        username: process.env.USER_NAME,
-        password: process.env.PASSWORD,
-        database: process.env.DATA_BASE,
-        connectorPackage: 'mysql2',
-        autoLoadEntities: true, // 自动加载实体,指定该选项后，通过 forFeature() 方法注册的每个实体都将自动添加到配置对象的 entities 数组中。
-        synchronize: true,
-      }),
-    }),
-    UserModule,
+    // TypeOrmModule.forRootAsync({
+    //   useFactory: () => ({
+    //     type: 'mysql',
+    //     host: process.env.HOST,
+    //     port: Number(process.env.PORT),
+    //     username: process.env.USER_NAME,
+    //     password: process.env.PASSWORD,
+    //     database: process.env.DATA_BASE,
+    //     connectorPackage: 'mysql2',
+    //     autoLoadEntities: true, // 自动加载实体,指定该选项后，通过 forFeature() 方法注册的每个实体都将自动添加到配置对象的 entities 数组中。
+    //     synchronize: true,
+    //   }),
+    // }),
+    // UserModule,
     ConfigModule.forRoot({
       envFilePath:
         process.env.NODE_ENV === 'production'
