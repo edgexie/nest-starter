@@ -13,9 +13,14 @@ import { Model } from 'mongoose';
 @Injectable()
 export class CatsService {
   constructor(@InjectModel(Cat.name) private catModel: Model<Cat>) {}
+
   async createWithMongoose(create2CatDto: Create2CatDto) {
     const createdCat = new this.catModel(create2CatDto);
     return createdCat.save();
+  }
+
+  async getCatsInMongoose() {
+    return this.catModel.find().exec();
   }
   create(createCatDto: CreateCatDto) {
     return 'This action adds a new cat123';

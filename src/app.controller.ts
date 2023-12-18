@@ -5,13 +5,13 @@ import {
   Param,
   Query,
   Post,
-  UploadedFiles,
-  UseInterceptors,
+  // UploadedFiles,
+  // UseInterceptors,
   Inject,
   Req,
   Header,
 } from '@nestjs/common';
-import { AnyFilesInterceptor } from '@nestjs/platform-express';
+// import { AnyFilesInterceptor } from '@nestjs/platform-express';
 import { AppService } from './app.service';
 import { Request } from 'express';
 import { ConfigService } from '@nestjs/config';
@@ -31,7 +31,7 @@ export class AppController {
   @Inject('CONFIG') private config;
   @Inject(ConfigService)
   private configService: ConfigService;
-  @Get('')
+  @Get()
   getHello(): string {
     console.log(this.configService.get('aaa'));
     console.log(this.configService.get('bbb'));
@@ -59,17 +59,17 @@ export class AppController {
   }
 
   // form-data，必须使用拦截器解析 AnyFilesInterceptor
-  @Post('file')
-  @UseInterceptors(
-    AnyFilesInterceptor({
-      dest: 'uploads/',
-    }),
-  )
-  body2(
-    @Body() personInfoDto: PersonInfoDto,
-    @UploadedFiles() files: Array<Express.Multer.File>,
-  ) {
-    console.log(files);
-    return `received: ${JSON.stringify(personInfoDto)}`;
-  }
+  // @Post('file')
+  // @UseInterceptors(
+  //   AnyFilesInterceptor({
+  //     dest: 'uploads/',
+  //   }),
+  // )
+  // body2(
+  //   @Body() personInfoDto: PersonInfoDto,
+  //   @UploadedFiles() files: Array<Express.Multer.File>,
+  // ) {
+  //   console.log(files);
+  //   return `received: ${JSON.stringify(personInfoDto)}`;
+  // }
 }

@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import { join } from 'path';
-import * as session from 'express-session';
+// import * as session from 'express-session';
 import { logger } from './logger.middleware';
 import { ValidationPipe } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
@@ -10,12 +10,12 @@ async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
   app.useStaticAssets(join(__dirname, '../', 'public'), { prefix: '/static' });
   app.useGlobalPipes(new ValidationPipe({ disableErrorMessages: false }));
-  app.use(
-    session({
-      secret: 'guang',
-      cookie: { maxAge: 1000 },
-    }),
-  );
+  // app.use(
+  //   session({
+  //     secret: 'guang',
+  //     cookie: { maxAge: 1000 },
+  //   }),
+  // );
   app.use(logger);
 
   const config = new DocumentBuilder()

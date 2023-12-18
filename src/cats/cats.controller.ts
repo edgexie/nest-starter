@@ -28,12 +28,12 @@ import {
 } from './dto/create-cat.dto';
 
 import { Roles } from '../decorators/roles.decorator';
-import { RolesGuard } from 'src/guards/roles.guard';
+import { RolesGuard } from '../guards/roles.guard';
 import { Request, Response } from 'express';
-import { ZodValidationPipe } from 'src/pipes/zod-validation.pipe';
-import { ClassValidationPipe } from 'src/pipes/class-validation.pipe';
+import { ZodValidationPipe } from '../pipes/zod-validation.pipe';
+import { ClassValidationPipe } from '../pipes/class-validation.pipe';
 
-import { LoggingInterceptor } from 'src/interceptors/logging.interceptor';
+import { LoggingInterceptor } from '../interceptors/logging.interceptor';
 import { ModuleRef } from '@nestjs/core';
 import { Create2CatDto } from './dto/create2-cat.dto';
 import { ApiTags } from '@nestjs/swagger';
@@ -88,6 +88,11 @@ export class CatsController implements OnModuleInit {
     // console.log(this.config);
     const res = { a: null };
     return res;
+  }
+
+  @Get('cats-in-mongoose')
+  getCatsInMongoose() {
+    return this.catsService.getCatsInMongoose();
   }
 
   @Get(':id')
